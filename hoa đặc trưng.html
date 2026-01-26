@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cẩm Nang Chăm Sóc Từng Loài Hoa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Thiết lập font Inter cho toàn bộ trang */
+        body  {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            /* Thiết lập nền để ảnh phủ kín toàn bộ viewport */
+            background-image: url('https://cdnv2.tgdd.vn/mwg-static/common/News/1576508/hinh-nen-hoa-hong-17.jpg'); /* Thay URL này bằng đường dẫn ảnh của bạn */
+            background-size: cover; /* Đảm bảo ảnh phủ kín toàn bộ khu vực, có thể bị cắt một phần */
+            background-position: center center; /* Căn giữa ảnh */
+            background-attachment: fixed; /* Giữ ảnh cố định khi cuộn (tùy chọn) */
+            background-repeat: no-repeat; /* Không lặp lại ảnh */
+        }
+                     {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fdee; /* Màu nền nhẹ nhàng, tươi mát */
+        }
+        .flower-card {
+            box-shadow: 0 0 20px rgba(100, 100, 100, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .flower-card:hover {
+            transform: translateY(-3px);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+        .accordion-content.active {
+            max-height: 500px; /* Đặt giá trị đủ lớn để chứa nội dung */
+            transition: max-height 0.6s ease-in;
+        }
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+.contact-button {
+    /* Chức năng hiển thị */
+    display: inline-block;
+    padding: 15px 40px;
+    
+    /* Màu sắc và font chữ */
+    background-color: #15a34a; /* Màu xanh giống hình bạn gửi */
+    color: white !important;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: none; /* Bỏ gạch chân của liên kết */
+    
+    /* Bo góc và đổ bóng */
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    /* Hiệu ứng mượt mà */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+  }
+
+  /* Hiệu ứng khi di chuột qua (Hover) */
+  .contact-button:hover {
+    background-color: #16803c; /* Màu đậm hơn một chút */
+    transform: translateY(-2px); /* Nút nhích lên một chút */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Hiệu ứng khi nhấn vào */
+  .contact-button:active {
+    transform: translateY(0);
+  }
+.contact-button {
+    /* Chức năng hiển thị */
+    display: inline-block;
+    padding: 15px 40px;
+    
+    /* Màu sắc và font chữ */
+    background-color: #15a34a; /* Màu xanh giống hình bạn gửi */
+    color: white !important;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: none; /* Bỏ gạch chân của liên kết */
+    
+    /* Bo góc và đổ bóng */
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    /* Hiệu ứng mượt mà */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+  }
+
+  /* Hiệu ứng khi di chuột qua (Hover) */
+  .contact-button:hover {
+    background-color: #16803c; /* Màu đậm hơn một chút */
+    transform: translateY(-2px); /* Nút nhích lên một chút */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Hiệu ứng khi nhấn vào */
+  .contact-button:active {
+    transform: translateY(0);
+  }
+@keyframes jumpAndFall {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    20% {
+        transform: translateY(-50px) rotate(10deg); /* Nhảy lên và hơi nghiêng */
+    }
+    100% {
+        transform: translateY(100vh) rotate(540deg); /* Rơi xuống hết màn hình và xoay tròn */
+        opacity: 0;
+    }
+}
+
+.animate-fall {
+    display: inline-block; /* Đảm bảo hiệu ứng transform hoạt động tốt */
+    pointer-events: none; /* Ngăn người dùng bấm tiếp khi đang rơi */
+    animation: jumpAndFall 1.5s forwards ease-in;
+}
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Navigation & Hero Header Section -->
+    <nav class="glass-morphism sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-green-700">✿ Flora Mastery - Làm chủ kiến thức về thế giới hoa</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-green-600 font-medium">Trang Chủ</a>
+                    <a href="bí quyết.html" class="text-gray-700 hover:text-green-600 font-medium">Bí Quyết</a>
+                    <a href="hoa đặc trưng.html" class="text-gray-700 hover:text-green-600 font-medium">Hoa Đặc trưng</a>
+                    <a href="công cụ.html" class="text-gray-700 hover:text-green-600 font-medium">Công cụ</a>
+                </div>
+             
+        </div>
+    </nav>
+
+        <!-- Main Hero Content (Không còn thanh tìm kiếm) -->
+        <div class="max-w-7xl mx-auto text-center py-32 px-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Cẩm Nang Chăm Sóc Hoa</h1>
+            <p class="text-lg md:text-xl text-yelow-200 max-w-2xl mx-auto drop-shadow-md">
+                Khám phá bí quyết để nuôi dưỡng vẻ đẹp rực rỡ cho từng loài hoa trong vườn nhà bạn.
+            </p>
+        </div>
+    </header>
+
+    <!-- Search Bar Section (Di chuyển ra khỏi Header) -->
+        <section class="mb-8 p-4 bg-white rounded-xl shadow-lg border-2 border-emerald-300/50">
+            <div class="text-4xl text-blue-500 mb-4">🔍</div>
+            <label for="flower-search" class="sr-only">Tìm kiếm hoa</label>
+            <input type="text" id="flower-search" placeholder="Tìm kiếm tên hoa (Ví dụ: Sen, Mai, Cúc, Oải Hương, Thủy Tiên...)" 
+                   class="w-full p-4 text-lg border-2 border-gray-200 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition duration-200" 
+                   onkeyup="filterFlowers()">
+        </section>
+
+        <!-- Hướng Dẫn Chăm Sóc Hoa Đặc Trưng -->
+        <section class="space-y-6" id="special-care">
+            <h2 class="text-3xl font-bold mb-4 text-blue-100  text-center pt-6">
+                Hướng Dẫn Chăm Sóc Hoa Đặc Trưng
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+            
+                            <!-- Card 4: Chăm Sóc Hoa Hồng 🌹 (Visible by default) -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://hatgiongphuongnam.com/asset/upload/image/hat-giong-hoa-hong-1.jpg?v=20190410" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-red-600">Chăm Sóc Hoa Hồng</h3>
+                    <p class="text-gray-600 mb-4">Hoa Hồng (Rose) cần sự chăm sóc tỉ mỉ để ra hoa đẹp và lặp lại.</p>
+                    <button onclick="toggleDetails('rose')" class="w-full bg-pink-100 text-red-700 py-2 rounded-lg font-medium hover:bg-pink-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="rose-content" class="accordion-content mt-4 border-t pt-4 border-pink-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Tối thiểu 6-8 giờ nắng trực tiếp mỗi ngày.</li>
+                            <li>**Tưới nước:** Tưới đẫm vào gốc vào sáng sớm, tránh để nước đọng trên lá.</li>
+                            <li>**Cắt tỉa:** Cắt tỉa tạo tán vào mùa nghỉ và cắt bỏ hoa tàn sau mỗi đợt nở.</li>
+                            <li>**Phân bón:** Ưu tiên phân bón có hàm lượng Kali (K) cao khi cây ra nụ.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 5: Chăm Sóc Hoa Lan 🌸 (Visible by default) -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://shophoasunny.vn/wp-content/uploads/2022/11/y-nghia-hoa-phong-lan-trang.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-purple-600">Chăm Sóc Hoa Lan</h3>
+                    <p class="text-gray-600 mb-4">Hoa Lan (Orchid) thích môi trường ẩm nhưng thoáng khí và ánh sáng gián tiếp.</p>
+                    <button onclick="toggleDetails('orchid')" class="w-full bg-purple-100 text-purple-700 py-2 rounded-lg font-medium hover:bg-purple-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="orchid-content" class="accordion-content mt-4 border-t pt-4 border-purple-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Ánh sáng tán xạ, tránh ánh nắng trực tiếp gay gắt.</li>
+                            <li>**Tưới nước:** Áp dụng nguyên tắc "Khô rồi mới tưới". Tưới bằng cách ngâm chậu hoặc xịt sương.</li>
+                            <li>**Giá thể:** Sử dụng vỏ thông, than củi hoặc dớn để đảm bảo sự thoát nước và thông thoáng tuyệt đối.</li>
+                            <li>**Độ ẩm:** Cần độ ẩm cao (50-70%).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 6: Chăm Sóc Hoa Tulip 🌷 (Visible by default) -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://cdnv2.tgdd.vn/mwg-static/common/News/1576574/7%20%282%29.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-yellow-700">Chăm Sóc Hoa Tulip</h3>
+                    <p class="text-gray-600 mb-4">Hoa Tulip (Tulipa) thích khí hậu mát mẻ và cần chu kỳ nghỉ đông rõ rệt.</p>
+                    <button onclick="toggleDetails('tulip')" class="w-full bg-yellow-100 text-yellow-700 py-2 rounded-lg font-medium hover:bg-yellow-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="tulip-content" class="accordion-content mt-4 border-t pt-4 border-yellow-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Cần ánh sáng mặt trời đầy đủ (6+ giờ) hoặc bán phần.</li>
+                            <li>**Nhiệt độ:** Phát triển tốt nhất trong môi trường mát mẻ (ban đêm dưới 13°C).</li>
+                            <li>**Đất:** Cần đất thoát nước cực tốt, tránh úng nước tuyệt đối.</li>
+                            <li>**Sau khi ra hoa:** Cắt bỏ hoa tàn, giữ lá cho đến khi chúng ngả vàng tự nhiên (để nuôi dưỡng củ).</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Card 7: Chăm Sóc Hoa Hướng Dương 🌻 (Visible by default) -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://litiflorist.com/upload/1587742907737.png" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-amber-700">Chăm Sóc Hoa Hướng Dương</h3>
+                    <p class="text-gray-600 mb-4">Hoa Hướng Dương (Sunflower) mang lại niềm vui, cần nhiều nắng và nước.</p>
+                    <button onclick="toggleDetails('sunflower')" class="w-full bg-amber-100 text-amber-700 py-2 rounded-lg font-medium hover:bg-amber-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="sunflower-content" class="accordion-content mt-4 border-t pt-4 border-amber-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Cần ít nhất 6-8 giờ nắng trực tiếp hàng ngày.</li>
+                            <li>**Tưới nước:** Tưới đẫm và sâu, đặc biệt khi cây còn nhỏ và trong thời kỳ ra hoa.</li>
+                            <li>**Đất:** Ưa đất giàu dinh dưỡng, thoát nước tốt và hơi kiềm.</li>
+                            <li>**Phân bón:** Bón phân NPK cân bằng; hạn chế phân bón có hàm lượng Nito quá cao.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Card 8: Chăm Sóc Hoa Sen 🪷 (Visible by default) -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://elmich.vn/wp-content/uploads/2024/04/Hinh-3-hinh-anh-trong-bai-1.jpg " alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-blue-700">Chăm Sóc Hoa Sen</h3>
+                    <p class="text-gray-600 mb-4">Hoa Sen (Lotus) cần môi trường nước tĩnh, nhiều nắng và dinh dưỡng dồi dào.</p>
+                    <button onclick="toggleDetails('lotus')" class="w-full bg-blue-100 text-blue-700 py-2 rounded-lg font-medium hover:bg-blue-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="lotus-content" class="accordion-content mt-4 border-t pt-4 border-blue-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Môi trường:** Cần bùn lầy, nhiều nước và không gian rộng cho rễ phát triển.</li>
+                            <li>**Ánh sáng:** Phải có nắng trực tiếp hoàn toàn (tối thiểu 8 giờ/ngày).</li>
+                            <li>**Dinh dưỡng:** Bón phân viên nén chuyên dụng cho sen, đặt sâu dưới lớp bùn để tránh làm đục nước.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 9: Chăm Sóc Hoa Mai 🌟 (Visible by default) -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL0kTVhlitH2HRW2It0U2KcNqfDmZdMbmGIAqYhwfksQ&s=10" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-yellow-800">Chăm Sóc Hoa Mai</h3>
+                    <p class="text-gray-600 mb-4">Hoa Mai (Apricot Blossom) là biểu tượng Tết, cần quy trình lặt lá đặc biệt.</p>
+                    <button onclick="toggleDetails('apricot')" class="w-full bg-yellow-200 text-yellow-700 py-2 rounded-lg font-medium hover:bg-yellow-300 transition duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="apricot-content" class="accordion-content mt-4 border-t pt-4 border-yellow-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Thời điểm:** Cần lặt lá vào cuối năm âm lịch để kích thích ra hoa đúng dịp Tết (thường khoảng 15-20 ngày trước Tết).</li>
+                            <li>**Nhiệt độ:** Nhiệt độ ấm áp (trên 25°C) thúc hoa nở nhanh; lạnh sẽ làm hoa nở chậm.</li>
+                            <li>**Giữ dáng:** Cắt tỉa định kỳ để tạo dáng cây bonsai đẹp và cân đối.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 10: Chăm Sóc Hoa Đào 🧧 (Visible by default) -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://hoangviet.edu.vn/wp-content/uploads/2024/01/2-24.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-red-700">Chăm Sóc Hoa Đào</h3>
+                    <p class="text-gray-600 mb-4">Hoa Đào (Peach Blossom) cần giai đoạn lạnh để phân hóa mầm hoa và nở rộ.</p>
+                    <button onclick="toggleDetails('peach')" class="w-full bg-red-100 text-red-700 py-2 rounded-lg font-medium hover:bg-red-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="peach-content" class="accordion-content mt-4 border-t pt-4 border-red-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Kích thích:** Hãm nước và tuốt lá trước Tết khoảng 2-3 tuần tùy thuộc vào điều kiện thời tiết.</li>
+                            <li>**Nhiệt độ:** Cần trải qua một mùa đông lạnh để ngủ đông, giúp hoa nở đều.</li>
+                            <li>**Bón phân:** Cần bón phân lân và kali trước khi cây vào giai đoạn tuốt lá.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 11: Chăm Sóc Cẩm Tú Cầu 💙 (Visible by default) -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://shophoatuoi.saigonhoa.com/wp-content/uploads/2023/03/hoa-cam-tu-cau-mau-xanh.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-indigo-700">Chăm Sóc Cẩm Tú Cầu</h3>
+                    <p class="text-gray-600 mb-4">Cẩm Tú Cầu (Hydrangea) là loài hoa đổi màu theo độ pH của đất.</p>
+                    <button onclick="toggleDetails('hydrangea')" class="w-full bg-indigo-100 text-indigo-700 py-2 rounded-lg font-medium hover:bg-indigo-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="hydrangea-content" class="accordion-content mt-4 border-t pt-4 border-indigo-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Ưa sáng bán phần, cần tránh nắng gắt buổi trưa, thích hợp nơi có bóng râm nhẹ.</li>
+                            <li>**Tưới nước:** Giữ đất ẩm liên tục, không để đất khô. Tưới nước hàng ngày vào mùa khô.</li>
+                            <li>**Màu hoa:** Thêm phèn chua vào đất để hoa chuyển sang màu xanh lam; thêm vôi để hoa có màu hồng/đỏ.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 12: Chăm Sóc Hoa Ly 🕊️ (Visible by default) -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://phale.com.vn/wp-content/uploads/2024/08/f3337b80b5b3e26944653e0891d8e1b1.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Chăm Sóc Hoa Ly</h3>
+                    <p class="text-gray-600 mb-4">Hoa Ly (Lily) là loài hoa thanh lịch, cần đất tơi xốp và thoát nước cực tốt.</p>
+                    <button onclick="toggleDetails('lily')" class="w-full bg-gray-100 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="lily-content" class="accordion-content mt-4 border-t pt-4 border-gray-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Trồng:** Trồng củ ở độ sâu gấp 3 lần kích thước củ, đảm bảo đầu củ hướng lên trên.</li>
+                            <li>**Tưới nước:** Tưới đều đặn, đặc biệt khi cây bắt đầu ra nụ, nhưng tránh làm ướt hoa và lá.</li>
+                            <li>**Hỗ trợ:** Đối với giống cao, cần cắm cọc đỡ kịp thời để cây không bị đổ ngã khi có gió.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- --- CÁC THẺ HOA ĐÃ CÓ (BỊ ẨN) --- -->
+                
+                <!-- Card 13: Cúc -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://caybamien.vn/wp-content/uploads/2022/12/ve-dep-cay-hoa-cuc-vang.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-green-700">Chăm Sóc Hoa Cúc</h3>
+                    <p class="text-gray-600 mb-4">Hoa Cúc (Chrysanthemum) cần ánh sáng đầy đủ và cắt tỉa thường xuyên.</p>
+                    <button onclick="toggleDetails('chrysanthemum')" class="w-full bg-green-100 text-green-700 py-2 rounded-lg font-medium hover:bg-green-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="chrysanthemum-content" class="accordion-content mt-4 border-t pt-4 border-green-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Cần nắng đầy đủ để cây ra nụ và nở hoa đẹp.</li>
+                            <li>**Cắt tỉa:** Bấm ngọn (pinch) khi cây còn nhỏ để kích thích phân nhánh và ra nhiều hoa hơn.</li>
+                            <li>**Tưới nước:** Giữ ẩm đất nhưng đảm bảo thoát nước tốt.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Card 14: Huệ -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://misshoa.com/wp-content/uploads/2020/05/hinh-anh-hoa-hue-trang-e1589114877707.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Chăm Sóc Hoa Huệ</h3>
+                    <p class="text-gray-600 mb-4">Hoa Huệ (Tuberose) cần nhiều nắng và trồng từ củ.</p>
+                    <button onclick="toggleDetails('tuberose')" class="w-full bg-gray-100 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="tuberose-content" class="accordion-content mt-4 border-t pt-4 border-gray-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Cần ít nhất 6-8 giờ nắng trực tiếp hàng ngày.</li>
+                            <li>**Đất:** Phải thoát nước tốt và giàu chất hữu cơ.</li>
+                            <li>**Tưới nước:** Tưới đẫm khi đất khô, đặc biệt trong giai đoạn ra hoa.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 15: Cẩm Chướng -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://hoahongsi.com/Upload/cate/thumb13670070000crop-7867.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-red-600">Chăm Sóc Cẩm Chướng</h3>
+                    <p class="text-gray-600 mb-4">Hoa Cẩm Chướng (Carnation) thích khí hậu mát mẻ và nhiều nắng.</p>
+                    <button onclick="toggleDetails('carnation')" class="w-full bg-pink-100 text-red-700 py-2 rounded-lg font-medium hover:bg-pink-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="carnation-content" class="accordion-content mt-4 border-t pt-4 border-pink-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Nắng đầy đủ (ít nhất 4-6 giờ/ngày).</li>
+                            <li>**Cắt tỉa:** Thường xuyên loại bỏ hoa héo để kéo dài thời gian nở hoa.</li>
+                            <li>**Thông gió:** Tránh môi trường quá ẩm, cần thông thoáng để tránh bệnh nấm.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 16: Mẫu Đơn -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://storage.googleapis.com/cdn_dlhf_vn/blog/sv3RfXDw-347546949_1298424087417535_6350491331181239031_n-1-768x768.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-orange-700">Chăm Sóc Mẫu Đơn</h3>
+                    <p class="text-gray-600 mb-4">Hoa Mẫu Đơn (Peony) cần mùa đông lạnh để phân hóa mầm hoa.</p>
+                    <button onclick="toggleDetails('peony')" class="w-full bg-orange-100 text-orange-700 py-2 rounded-lg font-medium hover:bg-orange-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="peony-content" class="accordion-content mt-4 border-t pt-4 border-orange-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Trồng:** Trồng củ/mắt mẫu đơn không quá sâu (chỉ 2-3 cm dưới mặt đất).</li>
+                            <li>**Ánh sáng:** Cần nắng đầy đủ (6+ giờ).</li>
+                            <li>**Hỗ trợ:** Cần cọc đỡ cho thân cây khi ra hoa lớn.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 17: Giấy -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6Cgmz8k9zJfJVmx_85_LDWSktoq4dSQzVyfj7Hv-YpF3qjocViM0DflQ&s=10" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-fuchsia-700">Chăm Sóc Hoa Giấy</h3>
+                    <p class="text-gray-600 mb-4">Hoa Giấy (Bougainvillea) cần sự "khắc khổ" để ra hoa rực rỡ.</p>
+                    <button onclick="toggleDetails('bougainvillea')" class="w-full bg-purple-100 text-fuchsia-700 py-2 rounded-lg font-medium hover:bg-purple-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="bougainvillea-content" class="accordion-content mt-4 border-t pt-4 border-fuchsia-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Bắt buộc phải có nắng trực tiếp, càng nhiều càng tốt.</li>
+                            <li>**Tưới nước:** Hãm nước trong 1-2 tuần (để đất khô hẳn) để kích thích cây ra hoa, sau đó mới tưới lại.</li>
+                            <li>**Cắt tỉa:** Cắt tỉa sau mỗi đợt hoa tàn.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 18: Anh Thảo -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://stc.hoatuoihoangnga.com/data/uploads/news/a4/hoa-anh-thao-nguon-goc-y-nghia-phong-thuy-va-cach-cham-soc-1598363305627.jpg?v=1598363305" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-lime-700">Chăm Sóc Anh Thảo</h3>
+                    <p class="text-gray-600 mb-4">Anh Thảo (Primrose) thích khí hậu mát mẻ và ánh sáng gián tiếp.</p>
+                    <button onclick="toggleDetails('primrose')" class="w-full bg-lime-100 text-lime-700 py-2 rounded-lg font-medium hover:bg-lime-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="primrose-content" class="accordion-content mt-4 border-t pt-4 border-lime-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Vị trí:** Đặt ở nơi có bóng râm nhẹ hoặc ánh sáng gián tiếp, tránh nắng gắt.</li>
+                            <li>**Tưới nước:** Giữ đất ẩm đều, nhưng tránh để úng rễ.</li>
+                            <li>**Nhiệt độ:** Nhiệt độ lý tưởng là mát mẻ (10-18°C).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 19: Cát Tường -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://spacet-release.s3.ap-southeast-1.amazonaws.com/img/blog/2023-10-05/giong-hoa-cat-tuong-kep-651e411fc9649b0ef5f80d43.webp" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-indigo-700">Chăm Sóc Cát Tường</h3>
+                    <p class="text-gray-600 mb-4">Cát Tường (Lisianthus) là loài hoa mềm mại, thích ánh sáng mạnh.</p>
+                    <button onclick="toggleDetails('lisianthus')" class="w-full bg-indigo-100 text-indigo-700 py-2 rounded-lg font-medium hover:bg-indigo-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="lisianthus-content" class="accordion-content mt-4 border-t pt-4 border-indigo-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Cần ánh sáng mạnh, nhưng tránh nắng gắt trực tiếp vào buổi trưa.</li>
+                            <li>**Đất:** Cần đất thoát nước tuyệt đối, dễ bị thối rễ nếu úng nước.</li>
+                            <li>**Hỗ trợ:** Cắm cọc đỡ kịp thời vì thân cây mỏng manh, dễ gãy.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 20: Dâm Bụt -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://floli.vn/uploads/news/2023_11/hoa-dam-but-2.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-red-700">Chăm Sóc Dâm Bụt (Bông Bụp)</h3>
+                    <p class="text-gray-600 mb-4">Dâm Bụt (Hibiscus) là loài cây nhiệt đới, cần nhiều nắng và nước.</p>
+                    <button onclick="toggleDetails('hibiscus')" class="w-full bg-pink-200 text-red-700 py-2 rounded-lg font-medium hover:bg-pink-300 transition duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="hibiscus-content" class="accordion-content mt-4 border-t pt-4 border-red-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Nắng trực tiếp, tối thiểu 6 giờ/ngày.</li>
+                            <li>**Tưới nước:** Tưới hàng ngày, đặc biệt vào mùa hè, giữ cho đất luôn ẩm.</li>
+                            <li>**Cắt tỉa:** Cắt tỉa cành để cây ra nhiều chồi mới và hoa.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 21: Đỗ Quyên -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2WD2V1NZHYYaAu5JrCEKbc8Ny6iR800Gfo-GysKqlqQ&s=10" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-fuchsia-700">Chăm Sóc Đỗ Quyên</h3>
+                    <p class="text-gray-600 mb-4">Đỗ Quyên (Azalea) là loài hoa ưa bóng râm và đất chua.</p>
+                    <button onclick="toggleDetails('azalea')" class="w-full bg-fuchsia-100 text-fuchsia-700 py-2 rounded-lg font-medium hover:bg-fuchsia-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="azalea-content" class="accordion-content mt-4 border-t pt-4 border-fuchsia-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Đất:** Cần đất có tính axit (chua), sử dụng rêu than bùn hoặc vỏ cây thông.</li>
+                            <li>**Vị trí:** Trồng dưới bóng râm của cây lớn hoặc nơi có nắng sáng gián tiếp.</li>
+                            <li>**Tưới nước:** Tưới bằng nước mưa hoặc nước đã khử clo/canxi để duy trì độ pH thấp.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 22: Hồng Môn -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://cdn.tgdd.vn/Files/2021/07/14/1368192/y-nghia-va-cach-cham-soc-cay-hong-mon-trong-phong-thuy-tot-cho-gia-dao-202107142006002478.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-red-700">Chăm Sóc Hồng Môn</h3>
+                    <p class="text-gray-600 mb-4">Hồng Môn (Anthurium) là cây nội thất, ưa ẩm và ánh sáng nhẹ.</p>
+                    <button onclick="toggleDetails('anthurium')" class="w-full bg-red-100 text-red-700 py-2 rounded-lg font-medium hover:bg-red-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="anthurium-content" class="accordion-content mt-4 border-t pt-4 border-red-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Vị trí:** Nơi có ánh sáng gián tiếp mạnh, tránh ánh nắng trực tiếp làm cháy lá.</li>
+                            <li>**Độ ẩm:** Phun sương cho lá thường xuyên để tăng độ ẩm xung quanh cây.</li>
+                            <li>**Tưới nước:** Để đất khô một chút giữa các lần tưới.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 23: Oải Hương -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://kenh14cdn.com/Images/Uploaded/Share/2010/08/14/150810lavender02.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-purple-800">Chăm Sóc Oải Hương</h3>
+                    <p class="text-gray-600 mb-4">Oải Hương (Lavender) là loài cây chịu hạn, thích đất nghèo dinh dưỡng.</p>
+                    <button onclick="toggleDetails('lavender')" class="w-full bg-purple-200 text-purple-700 py-2 rounded-lg font-medium hover:bg-purple-300 transition duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="lavender-content" class="accordion-content mt-4 border-t pt-4 border-purple-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Bắt buộc nắng trực tiếp đầy đủ (6-8 giờ/ngày).</li>
+                            <li>**Đất:** Ưu tiên đất cát, đá dăm, thoát nước cực nhanh.</li>
+                            <li>**Tưới nước:** Tưới rất ít, chỉ khi đất hoàn toàn khô, vì Oải Hương dễ bị thối rễ.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 24: Trạng Nguyên -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRATZVxjN9NjX_z_UpCmmjr88YP68UYkOJB2EtXJnuTjLi07FC_uqY_JygO&s=10" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-red-800">Chăm Sóc Trạng Nguyên</h3>
+                    <p class="text-gray-600 mb-4">Hoa Trạng Nguyên (Poinsettia) cần bóng tối để đổi màu lá (bracts).</p>
+                    <button onclick="toggleDetails('poinsettia')" class="w-full bg-red-200 text-red-700 py-2 rounded-lg font-medium hover:bg-red-300 transition duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="poinsettia-content" class="accordion-content mt-4 border-t pt-4 border-red-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Kích màu:** Để cây trong bóng tối hoàn toàn (14 giờ liên tục) mỗi đêm trong khoảng 8 tuần vào mùa thu.</li>
+                            <li>**Tưới nước:** Tưới khi đất mặt khô, tránh để cây bị khô héo hoặc úng.</li>
+                            <li>**Vị trí:** Tránh gió lùa và nhiệt độ thay đổi đột ngột.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- --- THẺ HOA MỚI (BỊ ẨN THEO YÊU CẦU) --- -->
+
+                <!-- Card 25: Đồng Tiền -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAelfwoK20--ly0tl7y_gflrszn8jJDjEbPw&s" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-orange-700">Chăm Sóc Hoa Đồng Tiền</h3>
+                    <p class="text-gray-600 mb-4">Đồng Tiền (Gerbera Daisy) thích nắng sáng, cần đất thoát nước tốt.</p>
+                    <button onclick="toggleDetails('gerbera')" class="w-full bg-yellow-200 text-orange-700 py-2 rounded-lg font-medium hover:bg-yellow-300 transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="gerbera-content" class="accordion-content mt-4 border-t pt-4 border-orange-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Nắng đầy đủ vào buổi sáng, tránh nắng gắt buổi trưa.</li>
+                            <li>**Đất:** Rất dễ thối rễ, cần giá thể xốp, thoát nước cực nhanh.</li>
+                            <li>**Tưới nước:** Tưới trực tiếp vào gốc, tránh làm ướt lá và cuống hoa.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 26: Súng -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkhezusWAmtT28JUnDIrAAQ751MCenRrz1xw&s" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-blue-700">Chăm Sóc Hoa Súng</h3>
+                    <p class="text-gray-600 mb-4">Hoa Súng (Water Lily) là loài hoa thủy sinh, cần môi trường nước tĩnh.</p>
+                    <button onclick="toggleDetails('waterlily')" class="w-full bg-blue-100 text-blue-700 py-2 rounded-lg font-medium hover:bg-blue-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="waterlily-content" class="accordion-content mt-4 border-t pt-4 border-blue-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Cần nắng trực tiếp tối thiểu 6 giờ/ngày.</li>
+                            <li>**Trồng:** Trồng củ trong bùn hoặc đất sét nặng rồi đặt chậu xuống đáy ao/bể.</li>
+                            <li>**Dinh dưỡng:** Bón phân chậm tan dạng viên nén cho cây thủy sinh, đặt sâu dưới bùn.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 27: Anh Đào -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://hnm.1cdn.vn/2017/03/13/hanoimoi.com.vn-uploads-thanhha-2017-3-13-_2014-03-12-huffcherry_blossom_.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-pink-700">Chăm Sóc Hoa Anh Đào</h3>
+                    <p class="text-gray-600 mb-4">Anh Đào (Cherry Blossom) cần chu kỳ lạnh sâu để ra hoa đồng loạt.</p>
+                    <button onclick="toggleDetails('cherryblossom')" class="w-full bg-pink-200 text-pink-700 py-2 rounded-lg font-medium hover:bg-pink-300 transition duration-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="cherryblossom-content" class="accordion-content mt-4 border-t pt-4 border-pink-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Nhiệt độ:** Cần thời gian ngủ đông với nhiệt độ thấp (dưới 7°C) trong vài tuần.</li>
+                            <li>**Đất:** Ưu tiên đất tơi xốp, giàu mùn và thoát nước tốt, hơi axit.</li>
+                            <li>**Cắt tỉa:** Cắt tỉa sau khi hoa tàn để tạo dáng và loại bỏ cành khô.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 28: Bách Hợp -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStf4LYDYkzeQzJBVIbbPid-cndDvsp4BgEqA&s" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Chăm Sóc Hoa Bách Hợp</h3>
+                    <p class="text-gray-600 mb-4">Bách Hợp (Lily - Calla/Trumpet) thích hợp trồng nơi thoáng mát, ánh sáng tán xạ.</p>
+                    <button onclick="toggleDetails('calla')" class="w-full bg-gray-100 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="calla-content" class="accordion-content mt-4 border-t pt-4 border-gray-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Ánh sáng gián tiếp hoặc bán râm.</li>
+                            <li>**Đất:** Đất trồng cần tơi xốp, giữ ẩm tốt nhưng không được úng.</li>
+                            <li>**Tưới nước:** Giữ ẩm đều đặn, đặc biệt là trong giai đoạn ra hoa.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 29: Dã Quỳ -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKk1mFPVxlRchmXf9SDS3X2nFAA7FfHx1TQA&s" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-amber-700">Chăm Sóc Hoa Dã Quỳ</h3>
+                    <p class="text-gray-600 mb-4">Dã Quỳ (Wild Sunflower) là loài hoa hoang dã, dễ trồng, ưa nắng. </p>
+                    <button onclick="toggleDetails('wildsunflower')" class="w-full bg-amber-100 text-amber-700 py-2 rounded-lg font-medium hover:bg-amber-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="wildsunflower-content" class="accordion-content mt-4 border-t pt-4 border-amber-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Cần nắng trực tiếp hoàn toàn để nở hoa rực rỡ.</li>
+                            <li>**Đất:** Có thể phát triển trên đất nghèo dinh dưỡng, nhưng cần thoát nước tốt.</li>
+                            <li>**Cắt tỉa:** Cắt tỉa sau khi cây tàn để kiểm soát chiều cao và tạo hình.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 30: Dạ Yến Thảo -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRTmNBUbSYqWt1DCg0VATq1IuCcz3ti8iHSA&s" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-purple-700">Chăm Sóc Dạ Yến Thảo</h3>
+                    <p class="text-gray-600 mb-4">Dạ Yến Thảo (Petunia) là hoa treo phổ biến, cần nắng và thoát nước nhanh.</p>
+                    <button onclick="toggleDetails('petunia')" class="w-full bg-purple-100 text-purple-700 py-2 rounded-lg font-medium hover:bg-purple-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="petunia-content" class="accordion-content mt-4 border-t pt-4 border-purple-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Nắng đầy đủ (ít nhất 6 giờ) để ra hoa liên tục.</li>
+                            <li>**Tưới nước:** Tưới khi đất hơi khô, tránh tưới vào hoa và lá để ngăn nấm mốc.</li>
+                            <li>**Dinh dưỡng:** Bón phân lỏng giàu Lân (P) hàng tuần.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 31: Diên Vỹ -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZtqYWk6nPP8E97LMmNiybOxYvw67N6y67QA&s" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-indigo-700">Chăm Sóc Hoa Diên Vỹ</h3>
+                    <p class="text-gray-600 mb-4">Diên Vỹ (Iris) nổi bật với hình dáng độc đáo, cần đất tơi xốp, nhiều nắng.</p>
+                    <button onclick="toggleDetails('iris')" class="w-full bg-indigo-100 text-indigo-700 py-2 rounded-lg font-medium hover:bg-indigo-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="iris-content" class="accordion-content mt-4 border-t pt-4 border-indigo-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Trồng:** Trồng thân rễ (rhizome) gần bề mặt đất để hấp thụ ánh nắng.</li>
+                            <li>**Ánh sáng:** Nắng đầy đủ (6-8 giờ/ngày) là tốt nhất.</li>
+                            <li>**Tưới nước:** Tưới vừa phải, đặc biệt trong mùa khô.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 32: Hải Đường -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVlqavtQAIi6CKyrEr2tD1TdtRvyOfcefOGw&s" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-red-700">Chăm Sóc Hải Đường</h3>
+                    <p class="text-gray-600 mb-4">Hải Đường (Camellia) là cây thân gỗ, ưa mát và đất có tính axit.</p>
+                    <button onclick="toggleDetails('camellia')" class="w-full bg-red-100 text-red-700 py-2 rounded-lg font-medium hover:bg-red-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="camellia-content" class="accordion-content mt-4 border-t pt-4 border-red-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Vị trí:** Bóng râm nhẹ, tránh nắng trực tiếp vào buổi chiều.</li>
+                            <li>**Đất:** Cần đất chua, giàu mùn và thoát nước tốt (pH 5.5 - 6.5).</li>
+                            <li>**Tưới nước:** Giữ đất ẩm đều, không để đất bị khô cứng.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 33: Hương Thảo -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6w2jAk56scJy9jbfXK4SDTNGPoRFykBnsxw&s" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-green-800">Chăm Sóc Hương Thảo</h3>
+                    <p class="text-gray-600 mb-4">Hương Thảo (Rosemary) là cây gia vị, ưa nắng và chịu hạn tốt.</p>
+                    <button onclick="toggleDetails('rosemary')" class="w-full bg-green-100 text-green-700 py-2 rounded-lg font-medium hover:bg-green-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="rosemary-content" class="accordion-content mt-4 border-t pt-4 border-green-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Cần nắng trực tiếp tối thiểu 6 giờ/ngày.</li>
+                            <li>**Tưới nước:** Để đất khô hẳn giữa các lần tưới; tránh tưới quá nhiều gây thối rễ.</li>
+                            <li>**Thông gió:** Đảm bảo cây có không khí lưu thông tốt.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 34: Kim Ngân -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4vm3kqgeFjvjsRCcVDsvhjmqSGm7q7Dwk6g&s" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-amber-700">Chăm Sóc Kim Ngân</h3>
+                    <p class="text-gray-600 mb-4">Kim Ngân (Honeysuckle) là cây leo, có mùi thơm, cần giàn leo vững chắc.</p>
+                    <button onclick="toggleDetails('honeysuckle')" class="w-full bg-yellow-100 text-amber-700 py-2 rounded-lg font-medium hover:bg-yellow-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="honeysuckle-content" class="accordion-content mt-4 border-t pt-4 border-amber-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Ưa nắng đầy đủ hoặc bán râm.</li>
+                            <li>**Hỗ trợ:** Cần giàn hoặc hàng rào để cây leo bám.</li>
+                            <li>**Cắt tỉa:** Cắt tỉa sau khi ra hoa để kiểm soát sự phát triển.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 35: Lài (Nhài) -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5HLX7LVAgn1f7YfH_0uXLeEaIM0TFrROqSQ&s" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Chăm Sóc Hoa Lài (Nhài)</h3>
+                    <p class="text-gray-600 mb-4">Hoa Lài (Jasmine) có mùi thơm nồng, thích khí hậu ấm áp.</p>
+                    <button onclick="toggleDetails('jasmine')" class="w-full bg-gray-100 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="jasmine-content" class="accordion-content mt-4 border-t pt-4 border-gray-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Cần nắng đầy đủ (4-6 giờ/ngày).</li>
+                            <li>**Tưới nước:** Giữ đất ẩm đều, không để đất quá khô.</li>
+                            <li>**Cắt tỉa:** Cắt tỉa thường xuyên để kích thích ra chồi và hoa mới.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 36: Mào Gà -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://assets.flowerstore.ph/public/tenantVN/app/assets/images/image_collections/fNsFVsWh9XlMcykDUYXEdyCzmFMZnx9c6SjpZTnj.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-orange-700">Chăm Sóc Hoa Mào Gà</h3>
+                    <p class="text-gray-600 mb-4">Mào Gà (Celosia) có hình dáng độc đáo, chịu nóng và nắng tốt.</p>
+                    <button onclick="toggleDetails('celosia')" class="w-full bg-orange-100 text-orange-700 py-2 rounded-lg font-medium hover:bg-orange-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="celosia-content" class="accordion-content mt-4 border-t pt-4 border-orange-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Nắng trực tiếp hoàn toàn để hoa có màu sắc rực rỡ.</li>
+                            <li>**Tưới nước:** Tưới vừa đủ, tránh úng nước.</li>
+                            <li>**Dinh dưỡng:** Bón phân cân đối để hỗ trợ sự phát triển của hoa.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 37: Ngọc Lan -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://genesishanoi.edu.vn/wp-content/uploads/2021/07/hoa-ngoc-lan.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Chăm Sóc Hoa Ngọc Lan</h3>
+                    <p class="text-gray-600 mb-4">Ngọc Lan (Magnolia) là cây thân gỗ, ưa nắng và đất ẩm.</p>
+                    <button onclick="toggleDetails('magnolia')" class="w-full bg-gray-100 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="magnolia-content" class="accordion-content mt-4 border-t pt-4 border-gray-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Nắng đầy đủ hoặc bán râm.</li>
+                            <li>**Đất:** Đất giàu hữu cơ, hơi axit và giữ ẩm tốt.</li>
+                            <li>**Tưới nước:** Tưới thường xuyên, đặc biệt là khi cây còn non.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 38: Phượng (Hoa học trò) -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://resource.kinhtedothi.vn/2024/05/12/ktdt-hoa-phuong-do19.jpeg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-red-800">Chăm Sóc Hoa Phượng</h3>
+                    <p class="text-gray-600 mb-4">Phượng (Flamboyant) là cây bóng mát, chịu hạn và cần ít chăm sóc.</p>
+                    <button onclick="toggleDetails('flamboyant')" class="w-full bg-red-200 text-red-700 py-2 rounded-lg font-medium hover:bg-red-300 transition duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="flamboyant-content" class="accordion-content mt-4 border-t pt-4 border-red-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Nắng trực tiếp hoàn toàn.</li>
+                            <li>**Tưới nước:** Cây trưởng thành chịu hạn tốt, chỉ cần tưới khi còn non.</li>
+                            <li>**Đất:** Thích nghi với nhiều loại đất, miễn là thoát nước tốt.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 39: Sữa -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://lomonoxop.edu.vn/images/ckeditor/images/lomonoxop/cay%20hoa%20sua.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-green-800">Chăm Sóc Cây Sữa</h3>
+                    <p class="text-gray-600 mb-4">Cây Sữa (Alstonia) là cây thân gỗ lớn, có mùi thơm đặc trưng vào đêm.</p>
+                    <button onclick="toggleDetails('alstonia')" class="w-full bg-green-100 text-green-700 py-2 rounded-lg font-medium hover:bg-green-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="alstonia-content" class="accordion-content mt-4 border-t pt-4 border-green-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Nắng đầy đủ, thích nghi tốt với môi trường đô thị.</li>
+                            <li>**Tưới nước:** Tưới đẫm khi còn non, cây trưởng thành chịu hạn tốt.</li>
+                            <li>**Cắt tỉa:** Hạn chế cắt tỉa quá mạnh để tránh làm hỏng cấu trúc cây.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 40: Thạch Thảo -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://cdn.tgdd.vn/Files/2021/07/22/1370124/y-nghia-cach-trong-va-cham-soc-hoa-thach-thao-no-dep-202107221858428294.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-purple-700">Chăm Sóc Hoa Thạch Thảo</h3>
+                    <p class="text-gray-600 mb-4">Thạch Thảo (Aster) là loài hoa nhỏ, thích khí hậu mát mẻ và nắng.</p>
+                    <button onclick="toggleDetails('aster')" class="w-full bg-purple-100 text-purple-700 py-2 rounded-lg font-medium hover:bg-purple-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="aster-content" class="accordion-content mt-4 border-t pt-4 border-purple-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Nắng đầy đủ là tốt nhất.</li>
+                            <li>**Tưới nước:** Tưới nước đều đặn để giữ đất ẩm, đặc biệt trong thời kỳ ra hoa.</li>
+                            <li>**Cắt tỉa:** Loại bỏ hoa tàn để khuyến khích cây ra hoa đợt tiếp theo.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 41: Thược Dược -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/hoa_thuoc_duoc_21dfae5f4f.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-pink-700">Chăm Sóc Hoa Thược Dược</h3>
+                    <p class="text-gray-600 mb-4">Thược Dược (Dahlia) nở hoa lớn, cần đất giàu dinh dưỡng và nắng.</p>
+                    <button onclick="toggleDetails('dahlia')" class="w-full bg-pink-100 text-pink-700 py-2 rounded-lg font-medium hover:bg-pink-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="dahlia-content" class="accordion-content mt-4 border-t pt-4 border-pink-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Trồng củ:** Trồng củ sau khi hết sương giá, cần cắm cọc đỡ ngay từ đầu.</li>
+                            <li>**Ánh sáng:** Nắng đầy đủ (ít nhất 6 giờ).</li>
+                            <li>**Tưới nước:** Tưới đẫm và sâu khi cây bắt đầu phát triển mạnh.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 42: Thủy Tiên -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://media.baobinhphuoc.com.vn/upload/news//3_2025/hoa_thuy_tien_15110225032025.png" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-yellow-700">Chăm Sóc Hoa Thủy Tiên</h3>
+                    <p class="text-gray-600 mb-4">Thủy Tiên (Narcissus) là hoa củ, thường được trồng trong nước vào dịp Tết.</p>
+                    <button onclick="toggleDetails('narcissus')" class="w-full bg-yellow-100 text-yellow-700 py-2 rounded-lg font-medium hover:bg-yellow-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="narcissus-content" class="accordion-content mt-4 border-t pt-4 border-yellow-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Trồng nước:** Gọt củ sạch sẽ, đặt củ trong bát nước sao cho rễ ngập nước và mầm hướng lên.</li>
+                            <li>**Ánh sáng:** Nơi mát mẻ, có ánh sáng gián tiếp.</li>
+                            <li>**Kiểm soát:** Điều chỉnh nhiệt độ và ánh sáng để hoa nở đúng dịp Tết.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 43: Tử Đằng -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://cayxanhhuongloc.com.vn/wp-content/uploads/2018/05/y-nghia-hoa-tu-dang-2-247x296.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-purple-800">Chăm Sóc Hoa Tử Đằng</h3>
+                    <p class="text-gray-600 mb-4">Tử Đằng (Wisteria) là cây dây leo lớn, cần giàn đỡ cực kỳ chắc chắn.</p>
+                    <button onclick="toggleDetails('wisteria')" class="w-full bg-purple-200 text-purple-700 py-2 rounded-lg font-medium hover:bg-purple-300 transition duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="wisteria-content" class="accordion-content mt-4 border-t pt-4 border-purple-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Cần nắng đầy đủ để kích thích ra hoa.</li>
+                            <li>**Cắt tỉa:** Cắt tỉa mạnh vào mùa đông và cắt ngắn chồi mới vào mùa hè để khuyến khích ra hoa.</li>
+                            <li>**Hỗ trợ:** Cây phát triển rất mạnh, phải có giàn thép hoặc gỗ cứng.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 44: Xương Rồng Bát Tiên -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://cdn.tgdd.vn/Files/2021/08/02/1372555/y-nghia-va-cach-trong-cham-soc-cay-xuong-rong-bat-tien-202201151434352151.jpeg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-green-700">Chăm Sóc Xương Rồng Bát Tiên</h3>
+                    <p class="text-gray-600 mb-4">Xương Rồng Bát Tiên (Crown of Thorns) là cây mọng nước, chịu khô hạn.</p>
+                    <button onclick="toggleDetails('crownofthorns')" class="w-full bg-green-100 text-green-700 py-2 rounded-lg font-medium hover:bg-green-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="crownofthorns-content" class="accordion-content mt-4 border-t pt-4 border-green-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Nắng trực tiếp hoặc ánh sáng mạnh.</li>
+                            <li>**Tưới nước:** Tưới ít, để đất khô hoàn toàn giữa các lần tưới.</li>
+                            <li>**Đất:** Cần đất có nhiều cát hoặc sỏi để đảm bảo thoát nước tối đa.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 45: Bông Ổi (Trâm ổi) -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjeJ2op9ruVa9M8GVqXN8FaK8xorvJU_IT7Q&s" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-orange-700">Chăm Sóc Bông Ổi (Trâm ổi)</h3>
+                    <p class="text-gray-600 mb-4">Bông Ổi (Lantana) đổi màu, chịu hạn, ra hoa liên tục trong điều kiện nắng gắt.</p>
+                    <button onclick="toggleDetails('lantana')" class="w-full bg-orange-100 text-orange-700 py-2 rounded-lg font-medium hover:bg-orange-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="lantana-content" class="accordion-content mt-4 border-t pt-4 border-orange-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Nắng trực tiếp hoàn toàn để hoa ra rộ và đổi màu đẹp.</li>
+                            <li>**Tưới nước:** Chịu hạn tốt, tưới khi đất khô.</li>
+                            <li>**Cắt tỉa:** Cắt tỉa thường xuyên để giữ dáng và loại bỏ hạt.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 46: Ti Gôn -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://cdn.eva.vn/upload/2-2018/images/2018-06-26/hoa-tigon7-1529966846-802-width600height407.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-pink-700">Chăm Sóc Hoa Ti Gôn</h3>
+                    <p class="text-gray-600 mb-4">Ti Gôn (Coral Vine) là cây leo, dễ trồng, hoa hình tim đáng yêu.</p>
+                    <button onclick="toggleDetails('coralvine')" class="w-full bg-pink-100 text-pink-700 py-2 rounded-lg font-medium hover:bg-pink-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="coralvine-content" class="accordion-content mt-4 border-t pt-4 border-pink-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Nắng đầy đủ (6+ giờ) là tốt nhất cho sự ra hoa.</li>
+                            <li>**Đất:** Không kén đất, miễn là thoát nước tốt.</li>
+                            <li>**Hỗ trợ:** Cần giàn hoặc hàng rào vì cây leo nhanh và mạnh.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 47: Hoa cứt lợn -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://tienduongdo.wordpress.com/wp-content/uploads/2017/09/hoa-cut-lon.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-orange-700">Chăm Sóc hoa cứt lợn (Ngũ sắc)</h3>
+                    <p class="text-gray-600 mb-4">Hoa cứt lợn (Ageratum conyzoides) là một loại cây dại phổ biến nhưng lại có nhiều đặc điểm và công dụng đáng chú ý.</p>
+                    <button onclick="toggleDetails('Ageratum conyzoides')" class="w-full bg-orange-100 text-orange-700 py-2 rounded-lg font-medium hover:bg-orange-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="Ageratum conyzoides-content" class="accordion-content mt-4 border-t pt-4 border-orange-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** cây ưa sáng, cần đủ ánh sáng để ra hoa nhiều và có màu sắc rực rỡ.</li>
+                            <li>**Tưới nước:** Cây cứt lợn có khả năng chịu hạn tốt và không chịu được úng nước. Chỉ tưới khi thấy lớp đất mặt se khô.</li>
+                            <li>**Cắt tỉa:** Thường xuyên cắt tỉa những cành héo, khô, lá vàng hoặc cành có dấu hiệu sâu bệnh để loại bỏ mầm bệnh và giúp cây tập trung phát triển những cành khỏe mạnh.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 48: Bồ công anh -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://giongcogiare.com.vn/wp-content/uploads/2021/01/hoa-bo-cong-anh-1.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-pink-700">Chăm Sóc Hoa Bồ công anh</h3>
+                    <p class="text-gray-600 mb-4">Hoa Bồ Công Anh (Taraxacum officinale) Cây thân thảo nhỏ, lá mọc sát đất (dạng hoa thị). Hoa vàng tươi, tàn đi tạo thành chùm hạt có lông tơ trắng, dễ bay theo gió.</p>
+                    <button onclick="toggleDetails('Taraxacum officinale')" class="w-full bg-pink-100 text-pink-700 py-2 rounded-lg font-medium hover:bg-pink-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="Taraxacum officinale-content" class="accordion-content mt-4 border-t pt-4 border-pink-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Ánh sáng:** Ưa nắng, có thể chịu bóng râm bán phần.</li>
+                            <li>**tưới nước:** Giữ đất ẩm nhưng không úng. Tưới khi đất mặt khô.</li>
+                            <li>**Cắt tỉa:** Cần giàn hoặc hàng rào vì cây leo nhanh và mạnh.Cắt bỏ hoa tàn để ngăn hạt bay (tự gieo) và khuyến khích ra hoa mới.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 49: Lục Bình -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ8JaVNX8zf7RP7ueyCjyzWXMrZ9KjxJiYmA&s" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-yellow-700">Chăm Sóc Hoa Lục Bình</h3>
+                    <p class="text-gray-600 mb-4">Hoa Lục Bình (Eichhornia crassipes) Cây thủy sinh nổi trên mặt nước. Lá hình tròn, cuống lá phình to chứa khí giúp cây nổi. Hoa màu tím nhạt, mọc thành chùm.</p>
+                    <button onclick="toggleDetails('Eichhornia crassipes')" class="w-full bg-yellow-100 text-yellow-700 py-2 rounded-lg font-medium hover:bg-yellow-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="Eichhornia crassipes-content" class="accordion-content mt-4 border-t pt-4 border-yellow-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Tưới nước:** Cây sống dưới nước, không cần tưới. Đảm bảo nguồn nước sạch, giàu dinh dưỡng.</li>
+                            <li>**Ánh sáng:** Ưa nắng hoàn toàn (càng nắng càng phát triển).</li>
+                            <li>**Cắt tỉa:** Vớt bỏ cây già, úa, hoặc quá dày để kiểm soát sự phát triển và tránh làm ô nhiễm nước.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 50: Bìm Bìm -->
+<div class="flower-card bg-white p-6 rounded-xl border border-emerald-100">
+    <div class="mb-4">
+        <img src="https://hellohoa.com/wp-content/uploads/2019/02/hoa-bim-bip.jpg" alt="Biểu tượng Đất" class="w-12 h-12 object-cover rounded-md">
+    </div>                    <h3 class="text-2xl font-semibold mb-3 text-yellow-700">Chăm Sóc Hoa Bìm Bìm</h3>
+                    <p class="text-gray-600 mb-4">Hoa Bìm Bịp (Ipomoea) Cây thân leo quấn, lá hình tim. Hoa lớn, hình phễu, thường có màu tím, hồng, xanh hoặc trắng, nở vào buổi sáng và tàn vào buổi chiều.</p>
+                    <button onclick="toggleDetails('Ipomoea')" class="w-full bg-yellow-100 text-yellow-700 py-2 rounded-lg font-medium hover:bg-yellow-200 transition duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">
+                        Xem Chi Tiết
+                    </button>
+                    <div id="Ipomoea-content" class="accordion-content mt-4 border-t pt-4 border-yellow-500/30">
+                        <ul class="text-gray-700 space-y-2 list-disc pl-5">
+                            <li>**Tưới nước:** Tưới đều đặn để giữ đất ẩm vừa phải, đặc biệt khi cây ra hoa. Tránh tưới quá nhiều gây úng.</li>
+                            <li>**Ánh sáng:** Ưa nắng hoàn toàn (6-8 giờ nắng/ngày).</li>
+                            <li>**Cắt tỉa:** Cắt tỉa ngọn để kích thích cây phân nhánh và ra nhiều hoa hơn. Loại bỏ cành khô, héo.</li>
+                        </ul>
+                    </div>
+                </div>
+
+        </div>
+
+        <div id="noResults" class="hidden text-center py-20">
+            <p class="text-xl text-gray-500 font-medium">Rất tiếc, chúng tôi không tìm thấy loài hoa này.</p>
+        </div>
+    </main>
+    <!-- Contact Form -->
+<section id="contact" class="py-24 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 bg-white rounded-[3rem] shadow-xl overflow-hidden flex flex-col md:flex-row">
+        <div class="md:w-1/2 bg-green-700 p-12 text-white flex flex-col justify-center">
+            <h3 class="text-3xl font-bold mb-6">Liên Hệ</h3>
+            <p class="mb-8 opacity-80">Hãy để chúng tôi giúp vườn hoa của bạn rực rỡ hơn mỗi ngày.</p>
+            
+            <div class="space-y-6 mb-8">
+                <p class="flex items-center"><i class="fas fa-phone mr-3"></i> 0365858302</p>
+                <p class="flex items-center"><i class="fas fa-envelope mr-3"></i> Truongthienquoc.pbc.a2@gmail.com</p>
+                <p class="flex items-center"><i class="fas fa-location-dot mr-3"></i> 123 Vườn Hoa, Tỉnh Lâm Đồng</p>
+            </div>
+
+            <div>
+                <a href="mailto:Truongthienquoc.pbc.a2@gmail.com?subject=Hỏi về dịch vụ&body=Chào bạn, tôi muốn biết thêm về..." 
+                   class="contact-button text-center">
+                   Liên Hệ qua gmail
+                </a>
+            </div>
+        </div>
+        
+        <div class="md:w-1/2 bg-gray-100 flex items-center justify-center p-8">
+            <img src="https://images.unsplash.com/photo-1507290439931-a861b5a38200?auto=format&fit=crop&w=600&q=80" 
+                 alt="Contact Us" class="rounded-2xl shadow-sm">
+        </div>
+    </div>
+</section>
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white mt-12 p-8 border-t-4 border-emerald-500">
+            <div class="container mx-auto grid md:grid-cols-3 gap-8 text-sm">
+                <div>
+                    <h4 class="text-lg font-bold text-emerald-400 mb-3">Về Trang Web</h4>
+                    <p class="text-gray-400">Chuyên trang cung cấp kiến thức và công cụ hỗ trợ chăm sóc hoa, giúp bạn xây dựng khu vườn trong mơ.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-emerald-400 mb-3"> </h4>
+                    <ul class="space-y-2">
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-emerald-400 mb-3">Nhóm Tác Giả</h4>
+                    <p class="text-gray-400">Nội dung được phát triển bởi:</p>
+                    <div class="flex gap-2 mt-2">
+                        <span class="bg-gray-700 px-3 py-1 rounded-full">Quốc</span>
+                        <span class="bg-gray-700 px-3 py-1 rounded-full">Bảo</span>
+                        <span class="bg-gray-700 px-3 py-1 rounded-full">Tân</span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-8 pt-6 border-t border-gray-700 text-gray-500">
+                &copy; 2026 Chăm Sóc Hoa. All rights reserved.
+            </div>
+        </footer>
+
+    <script>
+        /**
+         * Chức năng ẩn/hiện nội dung chi tiết (Accordion)
+         * @param {string} idPrefix - Tiền tố ID của nội dung cần bật/tắt (ví dụ: 'watering')
+         */
+        function toggleDetails(idPrefix) {
+            const content = document.getElementById(idPrefix + '-content');
+            // Đóng tất cả các accordion khác trước khi mở cái mới
+            const allContents = document.querySelectorAll('.accordion-content');
+            allContents.forEach(item => {
+                // Đảm bảo chỉ đóng nếu nó đang mở VÀ không phải là phần nội dung hiện tại
+                if (item.id !== idPrefix + '-content' && item.classList.contains('active')) {
+                    item.classList.remove('active');
+                }
+            });
+
+            if (content.classList.contains('active')) {
+                // Đang mở -> Đóng
+                content.classList.remove('active');
+            } else {
+                // Đang đóng -> Mở
+                content.classList.add('active');
+document.querySelectorAll('.flower-card button').forEach(button => {
+    button.addEventListener('click', function(e) {
+        // Ngăn chặn hành động mặc định nếu nút này là link hoặc submit
+        e.preventDefault();
+
+        // Thêm class hiệu ứng vào nút vừa bấm
+        this.classList.add('animate-fall');
+
+        // Tùy chọn: Xóa phần tử khỏi DOM sau khi rơi xong để tránh rác trang
+        setTimeout(() => {
+            // Nếu bạn muốn ẩn cả cái card chứa nó, dùng: this.parentElement.remove();
+            // Nếu chỉ muốn nút biến mất:
+            this.style.visibility = 'hidden'; 
+        }, 1500);
+    });
+});
+// Hàm để hồi phục lại tất cả các nút về trạng thái ban đầu
+function resetButtons() {
+    const allButtons = document.querySelectorAll('.flower-card button');
+    allButtons.forEach(btn => {
+        btn.classList.remove('animate-fall'); // Xóa class hoạt ảnh
+        btn.style.visibility = 'visible';     // Hiện lại nút
+    });
+}
+
+// Gán sự kiện cho các nút "Xem chi tiết"
+document.querySelectorAll('.flower-card button').forEach(button => {
+    button.addEventListener('click', function(e) {
+        // 1. Đầu tiên, hồi phục lại các nút khác đã rơi trước đó (nếu có)
+        resetButtons();
+
+        // 2. Kích hoạt hiệu ứng rơi cho nút hiện tại
+        this.classList.add('animate-fall');
+
+        // Tùy chọn: Log hoặc thực hiện chuyển trang sau khi nút rơi một đoạn
+        console.log("Đang xem chi tiết...");
+    });
+});
+
+// Cập nhật hàm filterFlowers của bạn để hồi nút khi tìm kiếm
+function filterFlowers() {
+    // Mỗi khi người dùng gõ tìm kiếm, chúng ta cũng hồi lại các nút
+    resetButtons();
+
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toUpperCase();
+    const cards = document.getElementsByClassName('flower-card');
+
+    for (let i = 0; i < cards.length; i++) {
+        const card = cards[i];
+        const h3 = card.querySelector('h3');
+        const p = card.querySelector('p');
+        const textValue = (h3.textContent || h3.innerText) + ' ' + (p.textContent || p.innerText);
+
+        if (filter.length === 0) {
+            if (i < 9) card.style.display = "";
+            else card.style.display = "none";
+        } else if (textValue.toUpperCase().indexOf(filter) > -1) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+    }
+}
+            }
+       }
+
+        /**
+         * Chức năng lọc các loại hoa theo từ khóa tìm kiếm
+         */
+        function filterFlowers() {
+            // Lấy giá trị từ thanh tìm kiếm và chuyển thành chữ in hoa
+            const input = document.getElementById('flower-search');
+            const filter = input.value.toUpperCase();
+            
+            // Lấy container chứa các thẻ hoa đặc trưng
+            const container = document.querySelector('#special-care > .grid');
+            const cards = container.getElementsByClassName('flower-card');
+
+            // Lặp qua tất cả các thẻ hoa
+            for (let i = 0; i < cards.length; i++) {
+                const card = cards[i];
+                // Lấy nội dung cần so sánh: Tiêu đề (h3) và Mô tả (p)
+                const h3 = card.querySelector('h3');
+                const p = card.querySelector('p');
+                
+                // Gộp nội dung thành một chuỗi lớn để tìm kiếm (bao gồm cả tiếng Việt và tiếng Anh)
+                const textValue = (h3.textContent || h3.innerText) + ' ' + (p.textContent || p.innerText);
+
+                // Nếu không có từ khóa tìm kiếm
+                if (filter.length === 0) {
+                    // Chỉ hiển thị 9 thẻ đầu tiên (Hoa Hồng đến Hoa Ly)
+                    if (i < 9) { 
+                        card.style.display = "";
+                    } else {
+                        card.style.display = "none";
+                    }
+                } 
+                // Nếu có từ khóa tìm kiếm
+                else if (textValue.toUpperCase().indexOf(filter) > -1) {
+                    card.style.display = ""; // Hiển thị thẻ khớp
+                } else {
+                    card.style.display = "none"; // Ẩn thẻ không khớp
+                }
+            }
+        }
+        
+        // Chạy hàm filterFlowers khi tải trang để đảm bảo chỉ 9 thẻ đầu tiên được hiển thị
+        window.onload = function() {
+            filterFlowers(); 
+        };
+
+    </script>
+
+</body>
+</html>

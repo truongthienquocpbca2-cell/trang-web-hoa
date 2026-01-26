@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công Cụ Chăm Sóc Hoa Chuyên Nghiệp</title>
+    <!-- Tải Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: translateY(-5px);
+        }
+.contact-button {
+    /* Chức năng hiển thị */
+    display: inline-block;
+    padding: 15px 40px;
+    
+    /* Màu sắc và font chữ */
+    background-color: #15a34a; /* Màu xanh giống hình bạn gửi */
+    color: white !important;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: none; /* Bỏ gạch chân của liên kết */
+    
+    /* Bo góc và đổ bóng */
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    /* Hiệu ứng mượt mà */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+  }
+
+  /* Hiệu ứng khi di chuột qua (Hover) */
+  .contact-button:hover {
+    background-color: #16803c; /* Màu đậm hơn một chút */
+    transform: translateY(-2px); /* Nút nhích lên một chút */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Hiệu ứng khi nhấn vào */
+  .contact-button:active {
+    transform: translateY(0);
+  }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <!-- Header -->
+    <nav class="glass-morphism sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-green-700">✿ Flora Mastery - Làm chủ kiến thức về thế giới hoa</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-green-600 font-medium">Trang Chủ</a>
+                    <a href="bí quyết.html" class="text-gray-700 hover:text-green-600 font-medium">Bí Quyết</a>
+                    <a href="hoa đặc trưng.html" class="text-gray-700 hover:text-green-600 font-medium">Hoa Đặc trưng</a>
+                    <a href="công cụ.html" class="text-gray-700 hover:text-green-600 font-medium">Công cụ</a>
+                </div>
+             
+        </div>
+    </nav>
+
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto p-4 md:p-8 space-y-12">
+
+            <!-- Banner -->
+            <section class="text-center bg-white p-10 rounded-2xl shadow-md border-l-8 border-emerald-500 relative overflow-hidden">
+                <div class="relative z-10">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 text-emerald-800">Trợ Thủ Đắc Lực Cho Khu Vườn</h2>
+                    <p class="text-xl text-gray-600 font-medium max-w-3xl mx-auto">
+                        "Một người thợ giỏi cần những công cụ tốt." Khám phá bộ sưu tập các dụng cụ thiết yếu giúp việc chăm sóc hoa trở nên nhẹ nhàng và hiệu quả hơn.
+                    </p>
+                </div>
+                <!-- Decorative background icon -->
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 opacity-10 text-9xl">
+                    ✂️
+                </div>
+            </section>
+
+            <!-- Thanh Tìm Kiếm Công Cụ -->
+            <section class="max-w-2xl mx-auto">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span class="text-2xl">🔍</span>
+                    </div>
+                    <input type="text" id="tool-search" placeholder="Tìm kiếm công cụ (Ví dụ: Kéo, Bình tưới, Găng tay...)" 
+                           class="w-full p-4 pl-12 text-lg border-2 border-emerald-200 rounded-full focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200 shadow-sm"
+                           onkeyup="filterTools()">
+                </div>
+            </section>
+
+            <!-- Nhóm 1: Dụng Cụ Cầm Tay Cơ Bản -->
+            <section id="hand-tools">
+                <h3 class="text-2xl font-bold text-emerald-700 mb-6 flex items-center gap-2 border-b-2 border-emerald-100 pb-2">
+                    <span class="bg-emerald-100 p-2 rounded-lg">🌿</span> Dụng Cụ Cơ Bản & Cắt Tỉa
+                </h3>
+                
+                <div class="grid md:grid-cols-3 gap-6 tools-grid">
+
+                    <!-- Tool 1: Kéo Cắt Tỉa -->
+                    <div class="tool-card p-6 rounded-xl border border-gray-100">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="text-5xl bg-red-50 p-3 rounded-full">✂️</div>
+                            <span class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded">Thiết yếu</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">Kéo Cắt Tỉa (Pruning Shears)</h4>
+                        <p class="text-gray-600 mb-4 text-sm">Dùng để cắt bỏ hoa tàn, cành khô và tạo dáng cho cây. Lưỡi sắc bén giúp vết cắt ngọt, tránh làm dập thân cây.</p>
+                        <button onclick="toggleTool('shears')" class="text-emerald-600 font-semibold hover:text-emerald-800 flex items-center gap-1 text-sm">
+                            Cách chọn & Sử dụng ▼
+                        </button>
+                        <div id="shears-content" class="accordion-content mt-3 bg-gray-50 p-3 rounded-lg text-sm text-gray-700">
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>Chọn loại có lò xo trợ lực để đỡ mỏi tay.</li>
+                                <li>Vệ sinh nhựa cây dính trên lưỡi sau mỗi lần dùng.</li>
+                                <li>Góc cắt 45 độ giúp nước không đọng lại trên vết cắt.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tool 2: Bình Tưới Vòi Sen -->
+                    <div class="tool-card p-6 rounded-xl border border-gray-100">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="text-5xl bg-blue-50 p-3 rounded-full">🚿</div>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Hàng ngày</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">Bình Tưới Vòi Sen</h4>
+                        <p class="text-gray-600 mb-4 text-sm">Cung cấp dòng nước nhẹ nhàng, mô phỏng mưa tự nhiên, không làm xói mòn đất hay gãy cánh hoa mỏng manh.</p>
+                        <button onclick="toggleTool('wateringcan')" class="text-emerald-600 font-semibold hover:text-emerald-800 flex items-center gap-1 text-sm">
+                            Lưu ý khi dùng ▼
+                        </button>
+                        <div id="wateringcan-content" class="accordion-content mt-3 bg-gray-50 p-3 rounded-lg text-sm text-gray-700">
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>Chọn bình dung tích 2-5 lít tùy quy mô vườn.</li>
+                                <li>Nên có đầu vòi tháo rời để vệ sinh cặn bẩn.</li>
+                                <li>Tưới vào gốc, tránh tưới mạnh lên hoa đang nở.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tool 3: Bay Làm Vườn -->
+                    <div class="tool-card p-6 rounded-xl border border-gray-100">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="text-5xl bg-amber-50 p-3 rounded-full">🥄</div>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded">Trồng trọt</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">Bay Làm Vườn (Trowel)</h4>
+                        <p class="text-gray-600 mb-4 text-sm">Công cụ đa năng để đào hố trồng cây, xúc đất, trộn phân bón và di chuyển cây con sang chậu mới.</p>
+                        <button onclick="toggleTool('trowel')" class="text-emerald-600 font-semibold hover:text-emerald-800 flex items-center gap-1 text-sm">
+                            Mẹo sử dụng ▼
+                        </button>
+                        <div id="trowel-content" class="accordion-content mt-3 bg-gray-50 p-3 rounded-lg text-sm text-gray-700">
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>Chọn loại có tay cầm cao su chống trượt.</li>
+                                <li>Loại có vạch chia độ sâu giúp trồng củ (Tulip, Ly) chính xác hơn.</li>
+                                <li>Rửa sạch đất bám để tránh rỉ sét.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tool 4: Găng Tay Bảo Hộ -->
+                    <div class="tool-card p-6 rounded-xl border border-gray-100">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="text-5xl bg-purple-50 p-3 rounded-full">🧤</div>
+                            <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded">Bảo vệ</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">Găng Tay Làm Vườn</h4>
+                        <p class="text-gray-600 mb-4 text-sm">Bảo vệ đôi tay khỏi gai (hoa hồng), hóa chất, vi khuẩn trong đất và côn trùng cắn.</p>
+                        <button onclick="toggleTool('gloves')" class="text-emerald-600 font-semibold hover:text-emerald-800 flex items-center gap-1 text-sm">
+                            Chọn loại nào? ▼
+                        </button>
+                        <div id="gloves-content" class="accordion-content mt-3 bg-gray-50 p-3 rounded-lg text-sm text-gray-700">
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>Vải cotton: Thoáng khí, cho công việc nhẹ.</li>
+                                <li>Phủ cao su/da: Chống thấm, chống gai tốt (cho hoa hồng).</li>
+                                <li>Nên giặt và phơi khô sau khi sử dụng.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tool 5: Cào Cầm Tay (Hand Rake) -->
+                    <div class="tool-card p-6 rounded-xl border border-gray-100">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="text-5xl bg-orange-50 p-3 rounded-full">🖐️</div>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">Cào Đất Cầm Tay</h4>
+                        <p class="text-gray-600 mb-4 text-sm">Dùng để làm tơi xốp lớp đất mặt, dọn sạch lá khô và cỏ dại xung quanh gốc hoa mà không làm hại rễ.</p>
+                    </div>
+
+                    <!-- Tool 6: Bình Xịt Phun Sương -->
+                    <div class="tool-card p-6 rounded-xl border border-gray-100">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="text-5xl bg-cyan-50 p-3 rounded-full">💦</div>
+                            <span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2.5 py-0.5 rounded">Độ ẩm</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">Bình Xịt Phun Sương</h4>
+                        <p class="text-gray-600 mb-4 text-sm">Cấp ẩm cho lá (đặc biệt với hoa Lan, Dương Xỉ), phun phân bón lá hoặc thuốc trừ sâu sinh học.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Nhóm 2: Công Cụ Hỗ Trợ & Công Nghệ -->
+            <section id="smart-tools" class="pt-8">
+                <h3 class="text-2xl font-bold text-emerald-700 mb-6 flex items-center gap-2 border-b-2 border-emerald-100 pb-2">
+                    <span class="bg-emerald-100 p-2 rounded-lg">📱</span> Công Nghệ & Hỗ Trợ
+                </h3>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Tool 7: Máy Đo pH/Độ Ẩm -->
+                    <div class="tool-card flex flex-col md:flex-row p-0 overflow-hidden rounded-xl border border-gray-200 h-full">
+                        <div class="bg-emerald-600 p-6 flex items-center justify-center md:w-1/3 text-white text-6xl">
+                            📟
+                        </div>
+                        <div class="p-6 md:w-2/3">
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">Máy Đo pH & Độ Ẩm Đất</h4>
+                            <p class="text-gray-600 text-sm mb-3">Thiết bị 3-trong-1 (pH, độ ẩm, ánh sáng) giúp bạn hiểu rõ "sức khỏe" của đất trồng mà không cần đoán mò.</p>
+                            <ul class="text-sm text-emerald-700 space-y-1 list-disc pl-4">
+                                <li>Kiểm tra xem đất có quá chua cho hoa hồng không.</li>
+                                <li>Biết chính xác khi nào cần tưới nước.</li>
+                                <li>Không cần dùng pin (với loại kim quang).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tool 8: Ứng Dụng AI -->
+                    <div class="tool-card flex flex-col md:flex-row p-0 overflow-hidden rounded-xl border border-gray-200 h-full">
+                        <div class="bg-blue-600 p-6 flex items-center justify-center md:w-1/3 text-white text-6xl">
+                            🤖
+                        </div>
+                        <div class="p-6 md:w-2/3">
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">Ứng Dụng AI Nhận Diện Hoa</h4>
+                            <p class="text-gray-600 text-sm mb-3">Công cụ kỹ thuật số giúp nhận diện tên loài hoa, chẩn đoán bệnh qua hình ảnh lá và gợi ý cách chăm sóc.</p>
+                            <div class="mt-2">
+                                <a href="https://drive.google.com/file/d/1ZAHys2xlJpp3OM3sdQ3UWhPtgJ-ZpHnr/view?usp=drivesdk" target="_blank" class="inline-block bg-blue-100 text-blue-700 px-4 py-2 rounded-lg font-medium hover:bg-blue-200 transition text-sm">
+                                    Tải Ứng Dụng Ngay ➜
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mẹo Bảo Quản -->
+            <section id="maintenance" class="bg-emerald-800 text-white rounded-2xl p-8 mt-12">
+                <div class="md:flex items-center gap-8">
+                    <div class="md:w-1/3 text-center mb-6 md:mb-0">
+                        <div class="text-6xl mb-4">🧽</div>
+                        <h3 class="text-2xl font-bold">Bảo Quản Dụng Cụ</h3>
+                    </div>
+                    <div class="md:w-2/3 border-l border-emerald-600 pl-0 md:pl-8">
+                        <p class="mb-4 text-emerald-100">Dụng cụ tốt cần được chăm sóc để bền bỉ theo thời gian. Hãy nhớ quy tắc "3 Sạch":</p>
+                        <div class="grid gap-4">
+                            <div class="bg-emerald-700 p-4 rounded-lg">
+                                <h5 class="font-bold text-yellow-300">1. Làm Sạch</h5>
+                                <p class="text-sm text-emerald-100">Rửa sạch đất và nhựa cây bằng vòi nước mạnh ngay sau khi dùng. Lau khô hoàn toàn để tránh rỉ sét.</p>
+                            </div>
+                            <div class="bg-emerald-700 p-4 rounded-lg">
+                                <h5 class="font-bold text-yellow-300">2. Sát Khuẩn</h5>
+                                <p class="text-sm text-emerald-100">Lau lưỡi kéo bằng cồn hoặc dung dịch tẩy rửa trước khi cắt cây khác để tránh lây lan nấm bệnh.</p>
+                            </div>
+                            <div class="bg-emerald-700 p-4 rounded-lg">
+                                <h5 class="font-bold text-yellow-300">3. Sắc Bén</h5>
+                                <p class="text-sm text-emerald-100">Mài lưỡi kéo, cuốc, xẻng định kỳ. Tra dầu máy vào chốt lò xo để vận hành trơn tru.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    <!-- Contact Form -->
+<section id="contact" class="py-24 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 bg-white rounded-[3rem] shadow-xl overflow-hidden flex flex-col md:flex-row">
+        <div class="md:w-1/2 bg-green-700 p-12 text-white flex flex-col justify-center">
+            <h3 class="text-3xl font-bold mb-6">Liên Hệ</h3>
+            <p class="mb-8 opacity-80">Hãy để chúng tôi giúp vườn hoa của bạn rực rỡ hơn mỗi ngày.</p>
+            
+            <div class="space-y-6 mb-8">
+                <p class="flex items-center"><i class="fas fa-phone mr-3"></i> 0365858302</p>
+                <p class="flex items-center"><i class="fas fa-envelope mr-3"></i> Truongthienquoc.pbc.a2@gmail.com</p>
+                <p class="flex items-center"><i class="fas fa-location-dot mr-3"></i> 123 Vườn Hoa, Tỉnh Lâm Đồng</p>
+            </div>
+
+            <div>
+                <a href="mailto:Truongthienquoc.pbc.a2@gmail.com?subject=Hỏi về dịch vụ&body=Chào bạn, tôi muốn biết thêm về..." 
+                   class="contact-button text-center">
+                   Liên Hệ qua gmail
+                </a>
+            </div>
+        </div>
+        
+        <div class="md:w-1/2 bg-gray-100 flex items-center justify-center p-8">
+            <img src="https://images.unsplash.com/photo-1507290439931-a861b5a38200?auto=format&fit=crop&w=600&q=80" 
+                 alt="Contact Us" class="rounded-2xl shadow-sm">
+        </div>
+    </div>
+</section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white mt-12 p-8 border-t-4 border-emerald-500">
+            <div class="container mx-auto grid md:grid-cols-3 gap-8 text-sm">
+                <div>
+                    <h4 class="text-lg font-bold text-emerald-400 mb-3">Về Trang Web</h4>
+                    <p class="text-gray-400">Chuyên trang cung cấp kiến thức và công cụ hỗ trợ chăm sóc hoa, giúp bạn xây dựng khu vườn trong mơ.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-emerald-400 mb-3"> </h4>
+                    <ul class="space-y-2">
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-emerald-400 mb-3">Nhóm Tác Giả</h4>
+                    <p class="text-gray-400">Nội dung được phát triển bởi:</p>
+                    <div class="flex gap-2 mt-2">
+                        <span class="bg-gray-700 px-3 py-1 rounded-full">Quốc</span>
+                        <span class="bg-gray-700 px-3 py-1 rounded-full">Bảo</span>
+                        <span class="bg-gray-700 px-3 py-1 rounded-full">Tân</span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-8 pt-6 border-t border-gray-700 text-gray-500">
+                &copy; 2026 Chăm Sóc Hoa. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        // Hàm Accordion cho phần chi tiết công cụ
+        function toggleTool(id) {
+            const content = document.getElementById(id + '-content');
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+            } else {
+                content.classList.add('active');
+            }
+        }
+
+        // Hàm Tìm Kiếm Công Cụ
+        function filterTools() {
+            const input = document.getElementById('tool-search');
+            const filter = input.value.toUpperCase();
+            const cards = document.getElementsByClassName('tool-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                const card = cards[i];
+                const h4 = card.querySelector('h4');
+                const p = card.querySelector('p');
+                
+                if (h4 && p) {
+                    const textValue = h4.textContent + ' ' + p.textContent;
+                    if (textValue.toUpperCase().indexOf(filter) > -1) {
+                        card.style.display = "";
+                        // Khôi phục lại layout flex nếu là card lớn (nhóm Công Nghệ)
+                        if (card.classList.contains('md:flex-row')) {
+                            card.style.display = "flex";
+                        }
+                    } else {
+                        card.style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
