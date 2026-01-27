@@ -48,6 +48,37 @@
         .hover-scale {
             transition: transform 0.3s ease;
         }
+        /* Hiệu ứng hoa nở khi di chuột vào thẻ */
+       /* Hiệu ứng hiện ra mượt mà (Fade-in + trượt nhẹ lên) */
+@keyframes fadeInCard {
+    from { 
+        opacity: 0; 
+        transform: translateY(15px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Class này sẽ được JS thêm vào khi tìm thấy kết quả */
+.show-animation {
+    animation: fadeInCard 0.4s ease-out forwards;
+}
+.flower-card img {
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Tạo chuyển động mượt mà và hơi nảy */
+}
+
+.flower-card:hover img {
+    transform: scale(1.4) rotate(8deg); /* Phóng to hình ảnh 1.4 lần và xoay nhẹ 8 độ */
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9)) brightness(1.2); /* Tạo hiệu ứng tỏa sáng và làm ảnh tươi hơn */
+}
+
+/* Thêm hiệu ứng rung rinh nhẹ cho thẻ hoa để trông sinh động hơn */
+.flower-card:hover {
+    border-color: #10b981; /* Đổi màu viền thành xanh lá cây khi di chuột */
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
+}
 .contact-button {
     /* Chức năng hiển thị */
     display: inline-block;
@@ -186,7 +217,7 @@
             <label for="flower-search" class="sr-only">Tìm kiếm hoa</label>
             <input type="text" id="flower-search" placeholder="Tìm kiếm tên hoa (Ví dụ: Sen, Mai, Cúc, Oải Hương, Thủy Tiên...)" 
                    class="w-full p-4 text-lg border-2 border-gray-200 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition duration-200" 
-                   onkeyup="filterFlowers()">
+                   oninput="filterFlowers()">
         </section>
 
         <!-- Hướng Dẫn Chăm Sóc Hoa Đặc Trưng -->
@@ -1210,42 +1241,39 @@ function filterFlowers() {
         /**
          * Chức năng lọc các loại hoa theo từ khóa tìm kiếm
          */
-        function filterFlowers() {
-            // Lấy giá trị từ thanh tìm kiếm và chuyển thành chữ in hoa
-            const input = document.getElementById('flower-search');
-            const filter = input.value.toUpperCase();
-            
-            // Lấy container chứa các thẻ hoa đặc trưng
-            const container = document.querySelector('#special-care > .grid');
-            const cards = container.getElementsByClassName('flower-card');
+function filterFlowers() {
+    const input = document.getElementById('flower-search');
+    const filter = input.value.toUpperCase();
+    const cards = document.getElementsByClassName('flower-card');
 
-            // Lặp qua tất cả các thẻ hoa
-            for (let i = 0; i < cards.length; i++) {
-                const card = cards[i];
-                // Lấy nội dung cần so sánh: Tiêu đề (h3) và Mô tả (p)
-                const h3 = card.querySelector('h3');
-                const p = card.querySelector('p');
-                
-                // Gộp nội dung thành một chuỗi lớn để tìm kiếm (bao gồm cả tiếng Việt và tiếng Anh)
-                const textValue = (h3.textContent || h3.innerText) + ' ' + (p.textContent || p.innerText);
+    for (let i = 0; i < cards.length; i++) {
+        const card = cards[i];
+        const h3 = card.querySelector('h3');
+        const p = card.querySelector('p');
+        const textValue = (h3.textContent || h3.innerText) + ' ' + (p.textContent || p.innerText);
 
-                // Nếu không có từ khóa tìm kiếm
-                if (filter.length === 0) {
-                    // Chỉ hiển thị 9 thẻ đầu tiên (Hoa Hồng đến Hoa Ly)
-                    if (i < 9) { 
-                        card.style.display = "";
-                    } else {
-                        card.style.display = "none";
-                    }
-                } 
-                // Nếu có từ khóa tìm kiếm
-                else if (textValue.toUpperCase().indexOf(filter) > -1) {
-                    card.style.display = ""; // Hiển thị thẻ khớp
-                } else {
-                    card.style.display = "none"; // Ẩn thẻ không khớp
-                }
-            }
+        // Logic hiển thị
+        let shouldShow = false;
+        if (filter.length === 0) {
+            if (i < 9) shouldShow = true; // Mặc định hiện 9 thẻ đầu
+        } else if (textValue.toUpperCase().indexOf(filter) > -1) {
+            shouldShow = true; // Khớp từ khóa
         }
+
+        if (shouldShow) {
+            // Nếu thẻ đang ẩn, hiện nó ra với hiệu ứng
+            if (card.style.display === "none" || card.style.display === "") {
+                card.style.display = "block";
+                card.classList.remove('show-animation'); // Reset animation
+                void card.offsetWidth; // Thủ thuật để trình duyệt hiểu việc reset
+                card.classList.add('show-animation');
+            }
+        } else {
+            card.style.display = "none";
+            card.classList.remove('show-animation');
+        }
+    }
+}
         
         // Chạy hàm filterFlowers khi tải trang để đảm bảo chỉ 9 thẻ đầu tiên được hiển thị
         window.onload = function() {
