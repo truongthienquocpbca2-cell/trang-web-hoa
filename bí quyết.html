@@ -67,21 +67,37 @@
 <body class="min-h-screen">
 
     <!-- Header / Navigation -->
-    <nav class="glass-morphism sticky top-0 z-50 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
-                    <span class="text-2xl font-bold text-green-700">✿ Flora Mastery - Làm chủ kiến thức về thế giới hoa</span>
-                </div>
-                <div class="hidden md:flex space-x-8">                    
-                    <a href="index.html" class="text-gray-700 hover:text-green-600 font-medium">Trang Chủ</a>
-                    <a href="bí quyết.html" class="text-gray-700 hover:text-green-600 font-medium">Bí Quyết</a>
-                    <a href="hoa đặc trưng.html" class="text-gray-700 hover:text-green-600 font-medium">Hoa Đặc trưng</a>
-                    <a href="công cụ.html" class="text-gray-700 hover:text-green-600 font-medium">Công cụ</a>
-                </div>
-             
+ <nav class="glass-morphism sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+            <div class="flex items-center">
+                <span class="text-lg md:text-2xl font-bold text-green-700 truncate max-w-[200px] md:max-w-none">
+                    ✿ Flora Mastery
+                </span>
+            </div>
+
+            <div class="flex md:hidden">
+                <button id="mobile-menu-button" class="text-green-700 hover:text-green-600 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-700 hover:text-green-600 font-medium">Trang Chủ</a>
+                <a href="bí quyết.html" class="text-gray-700 hover:text-green-600 font-medium">Bí Quyết</a>
+                <a href="hoa đặc trưng.html" class="text-gray-700 hover:text-green-600 font-medium">Hoa Đặc trưng</a>
+                <a href="công cụ.html" class="text-gray-700 hover:text-green-600 font-medium">Công cụ</a>
+            </div>
         </div>
-    </nav>
+
+        <div id="mobile-menu" class="hidden md:hidden pb-4">
+            <a href="index.html" class="block px-3 py-2 text-gray-700 hover:bg-green-50 rounded-md">Trang Chủ</a>
+            <a href="bí quyết.html" class="block px-3 py-2 text-gray-700 hover:bg-green-50 rounded-md">Bí Quyết</a>
+            <a href="hoa đặc trưng.html" class="block px-3 py-2 text-gray-700 hover:bg-green-50 rounded-md">Hoa Đặc trưng</a>
+            <a href="công cụ.html" class="block px-3 py-2 text-gray-700 hover:bg-green-50 rounded-md">Công cụ</a>
+        </div>
+    </div>
+</nav>
 
     <!-- Hero Section -->
     <header class="py-20 text-center px-4">
@@ -251,7 +267,15 @@
             </div>
         </footer>
 
-    <script>
+      <script>
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+
+    btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+    });
+
+
         function searchTips() {
             const input = document.getElementById('tipSearch');
             const filter = input.value.toUpperCase();
